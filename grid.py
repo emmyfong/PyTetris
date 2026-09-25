@@ -11,3 +11,11 @@ class Grid:
         for row in self.grid:
             print(row)
     
+    def checkFullLines(self):
+        return
+    
+    def clearLine(self):
+        return
+    
+    def moveRowsDown(self):
+        return
