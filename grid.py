@@ -1,4 +1,5 @@
-#Define grid
+#grid.py
+import pygame
 
 class Grid:
     ROWS = 20
@@ -7,9 +8,8 @@ class Grid:
     def __init__(self):
         self.grid = [[0 for _ in range(self.COLS)] for _ in range(self.ROWS)]
     
-    def drawGrid(self):
-        for row in self.grid:
-            print(row)
+    def drawGrid(self, screen):
+        return
     
     def checkFullLines(self):
         return

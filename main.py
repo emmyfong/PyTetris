@@ -21,11 +21,11 @@ while running:
     # fill the screen with a color to wipe away anything from last frame
     screen.fill("cornflowerblue")
 
+    grid.drawGrid()
+
     # RENDER YOUR GAME HERE
     pygame.display.flip()
 
     clock.tick(60)
-    
-    grid.drawGrid()
 
 pygame.quit()
