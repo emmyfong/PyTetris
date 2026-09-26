@@ -5,7 +5,7 @@ from grid import Grid
 
 # pygame setup
 pygame.init()
-screen = pygame.display.set_mode((1280, 720))
+screen = pygame.display.set_mode((650, 650))
 clock = pygame.time.Clock()
 running = True
 
@@ -18,12 +18,12 @@ while running:
         if event.type == pygame.QUIT:
             running = False
 
-    # fill the screen with a color to wipe away anything from last frame
-    screen.fill("cornflowerblue")
+    #background color
+    screen.fill("black")
 
-    grid.drawGrid()
+    grid.drawGrid(screen)
 
-    # RENDER YOUR GAME HERE
+    #render game
     pygame.display.flip()
 
     clock.tick(60)
