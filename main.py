@@ -5,6 +5,7 @@ from game import Game
 
 # pygame setup
 pygame.init()
+pygame.key.set_repeat(300, 50)
 screen = pygame.display.set_mode((650, 650))
 clock = pygame.time.Clock()
 running = True
