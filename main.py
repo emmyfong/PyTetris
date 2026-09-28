@@ -2,6 +2,7 @@
 
 import pygame
 from game import Game
+from ui import UI
 
 # pygame setup
 pygame.init()
@@ -12,6 +13,7 @@ running = True
 
 #initialie the game
 game = Game()
+uiManager = UI()
 
 #custom even for gravity timer
 GAME_UPDATE = pygame.USEREVENT
@@ -42,6 +44,7 @@ while running:
     screen.fill("black")
 
     game.draw(screen)
+    uiManager.draw(screen, game)
 
     #render game
     pygame.display.flip()

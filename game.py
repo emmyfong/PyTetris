@@ -15,6 +15,8 @@ class Game:
         #Holding
         self.holdBlock = None
         self.canHold = True
+        
+        self.score = 000000000
 
     def getRandomBlock(self):
         randomClass = random.choice(self.blocks)
