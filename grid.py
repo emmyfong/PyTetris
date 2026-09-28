@@ -23,11 +23,25 @@ class Grid:
                 
                 pygame.draw.rect(screen, (255, 255, 255), (xPix, yPix, self.CELL_SIZE, self.CELL_SIZE), 1)
     
+    #Check and clear line
+    def isRowFull(self, row):
+        #if a single 0 -> row is not full
+        for cellVal in self.grid[row]:
+            if cellVal == 0:
+                return False
+        
+        return True
+    
+    def clearRow(self, row):
+        for col in range(self.COLS):
+            self.grid[row][col] = 0
+    
+    def moveRowsDown(self, row, dist):
+        for col in range(self.COLS):
+            #cpy color to new pos
+            self.grid[row + dist][col] = self.grid[row][col]
+            #erase old pos
+            self.grid[row][col] = 0    
+    
     def checkFullLines(self):
-        return
-    
-    def clearLine(self):
-        return
-    
-    def moveRowsDown(self):
         return
