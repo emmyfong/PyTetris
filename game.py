@@ -16,7 +16,7 @@ class Game:
         self.holdBlock = None
         self.canHold = True
         
-        self.score = 000000000
+        self.score = 0
 
     def getRandomBlock(self):
         randomClass = random.choice(self.blocks)
@@ -86,8 +86,13 @@ class Game:
     
     def moveDown(self):
         self.currentBlock.row += 1
+        linesCleared = self.grid.checkFullLines()
         if self.checkCollision():
             self.currentBlock.row -= 1
+        
+        #update score
+        if linesCleared > 0:
+            self.updateScore(linesCleared)
     
     #Block Rotation
     def rotateBlock(self):
@@ -102,12 +107,24 @@ class Game:
             if self.checkCollision():
                 self.currentBlock.row -= 1
                 self.lockToGrid()
-                self.grid.checkFullLines()
+                
+                #update score
+                linesCleared = self.grid.checkFullLines()
+                if linesCleared > 0:
+                    self.updateScore(linesCleared)
+                
                 self.spawnBlock()
                 break
     
-    def updateScore(self):
-        return
+    def updateScore(self, linesCleared):
+        if linesCleared == 1:
+            self.score += 40
+        elif linesCleared == 2:
+            self.score += 100
+        elif linesCleared == 3:
+            self.score += 300
+        elif linesCleared == 4:
+            self.score += 1200
 
     def draw(self, screen):
         self.grid.drawGrid(screen)
