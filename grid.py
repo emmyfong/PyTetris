@@ -44,4 +44,16 @@ class Grid:
             self.grid[row][col] = 0    
     
     def checkFullLines(self):
-        return
+        completedLines = 0
+        
+        #reverse for loop
+        for row in range(self.ROWS - 1, -1, -1):
+            if self.isRowFull(row):
+                self.clearRow(row)
+                completedLines += 1
+            
+            #if row isn't full but line nder is cleared -> needs to fall down
+            elif completedLines > 0:
+                self.moveRowsDown(row, completedLines)
+        
+        return completedLines

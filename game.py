@@ -30,6 +30,9 @@ class Game:
         if self.checkCollision():
             self.currentBlock.row -= 1
             self.lockToGrid()
+            
+            self.grid.checkFullLines()
+            
             self.spawnBlock() 
 
     def checkCollision(self):
@@ -97,6 +100,7 @@ class Game:
             if self.checkCollision():
                 self.currentBlock.row -= 1
                 self.lockToGrid()
+                self.grid.checkFullLines()
                 self.spawnBlock()
                 break
     
