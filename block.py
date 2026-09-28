@@ -29,5 +29,5 @@ class Block:
                     yPix = (self.row + i) * cellSize + yOff
                     
                     #draw
-                    pygame.draw.rect(screen, (0, 0, 255), (xPix, yPix, cellSize, cellSize))
+                    pygame.draw.rect(screen, self.color, (xPix, yPix, cellSize, cellSize))
                     pygame.draw.rect(screen, (255, 255, 255), (xPix, yPix, cellSize, cellSize), 1)
