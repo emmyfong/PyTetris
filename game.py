@@ -87,6 +87,18 @@ class Game:
     #Block Rotation
     def rotateBlock(self):
         self.currentBlock.rotate()
+        
+        if self.checkCollision():
+            self.currentBlock.undoRotate()
+        
+    def dropBlock(self):
+        while True:
+            self.currentBlock.row += 1
+            if self.checkCollision():
+                self.currentBlock.row -= 1
+                self.lockToGrid()
+                self.spawnBlock()
+                break
     
     def updateScore(self):
         return

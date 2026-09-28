@@ -17,6 +17,9 @@ class Block:
     
     def rotate(self):
         self.rotationIdx = (self.rotationIdx + 1) % len(self.shapeData)
+        
+    def undoRotate(self):
+        self.rotationIdx = (self.rotationIdx - 1) % len(self.shapeData)
     
     def draw(self, screen, cellSize, xOff, yOff):
         shape = self.getCurrentShape()

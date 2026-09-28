@@ -35,6 +35,8 @@ while running:
                 game.moveDown()
             if event.key == pygame.K_UP:
                 game.rotateBlock()
+            if event.key == pygame.K_SPACE:
+                game.dropBlock()
 
     #background color
     screen.fill("black")
