@@ -33,7 +33,9 @@ class Game:
             self.currentBlock.row -= 1
             self.lockToGrid()
             
-            self.grid.checkFullLines()
+            linesCleared = self.grid.checkFullLines()
+            if linesCleared > 0:
+                self.updateScore(linesCleared)
             
             self.spawnBlock() 
 
@@ -71,6 +73,8 @@ class Game:
                     
                     #overwrite 0 with block specific rgb color
                     self.grid.grid[globalRow][globalCol] = self.currentBlock.color
+        
+        self.canHold = True
     
     
     #Movement
@@ -83,16 +87,6 @@ class Game:
         self.currentBlock.col += 1
         if self.checkCollision():
             self.currentBlock.col -= 1
-    
-    def moveDown(self):
-        self.currentBlock.row += 1
-        linesCleared = self.grid.checkFullLines()
-        if self.checkCollision():
-            self.currentBlock.row -= 1
-        
-        #update score
-        if linesCleared > 0:
-            self.updateScore(linesCleared)
     
     #Block Rotation
     def rotateBlock(self):
@@ -115,6 +109,25 @@ class Game:
                 
                 self.spawnBlock()
                 break
+        
+        self.canHold = True
+    
+    def hold(self):
+        if not self.canHold:
+            return
+
+        #First time holding block
+        if self.holdBlock is None:
+            self.holdBlock = self.currentBlock
+            self.spawnBlock()
+        
+        #already holding something -> swap
+        else:
+            self.currentBlock, self.holdBlock = self.holdBlock, self.currentBlock
+            self.currentBlock.resetPosition()
+        
+        self.holdBlock.resetPosition()
+        self.canHold = False
     
     def updateScore(self, linesCleared):
         if linesCleared == 1:
