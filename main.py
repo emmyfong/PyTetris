@@ -31,6 +31,10 @@ while running:
                 game.moveLeft()
             if event.key == pygame.K_RIGHT:
                 game.moveRight()
+            if event.key == pygame.K_DOWN:
+                game.moveDown()
+            if event.key == pygame.K_UP:
+                game.rotateBlock()
 
     #background color
     screen.fill("black")

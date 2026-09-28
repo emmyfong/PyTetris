@@ -79,6 +79,15 @@ class Game:
         if self.checkCollision():
             self.currentBlock.col -= 1
     
+    def moveDown(self):
+        self.currentBlock.row += 1
+        if self.checkCollision():
+            self.currentBlock.row -= 1
+    
+    #Block Rotation
+    def rotateBlock(self):
+        self.currentBlock.rotate()
+    
     def updateScore(self):
         return
 
