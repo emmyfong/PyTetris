@@ -19,6 +19,15 @@ class Game:
         self.score = 0
         self.gameOver = False
 
+    def reset(self):
+        self.grid = Grid()
+        self.nextBlock = self.getRandomBlock()
+        self.currentBlock = self.getRandomBlock()
+        self.holdBlock = None
+        self.canHold = True
+        self.score = 0
+        self.gameOver = False
+
     def getRandomBlock(self):
         randomClass = random.choice(self.blocks)
         return randomClass()
