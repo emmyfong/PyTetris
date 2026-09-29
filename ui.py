@@ -17,7 +17,8 @@ class UI:
         self.drawScore(screen, game)
         self.drawNextBox(screen, game)
         self.drawHoldBox(screen, game)
-        
+        self.drawGameOver(screen, game)
+
     def drawScore(self, screen, game):
          scoreTitle = self.mainFont.render("SCORE", True, self.textColor)
          screen.blit(scoreTitle, (430, 30))
@@ -34,24 +35,50 @@ class UI:
 
         nextRect = nextTitle.get_rect(center=(475, 165))
         screen.blit(nextTitle, nextRect)
-        
-        pygame.draw.rect(screen, self.boxColor, (375, 190, 200, 150), 2)
-        
+
+        boxRect = pygame.Rect(375, 190, 200, 150)
+        pygame.draw.rect(screen, self.boxColor, boxRect, 2)
+
         if game.nextBlock:
-            uiX = 430 - (game.nextBlock.col * game.grid.CELL_SIZE)
-            uiY = 235 - (game.nextBlock.row * game.grid.CELL_SIZE)
-            
-            game.nextBlock.draw(screen, game.grid.CELL_SIZE, uiX, uiY)
-    
+            self.drawCenteredBlock(screen, game.nextBlock, game.grid.CELL_SIZE, boxRect.center)
+
     def drawHoldBox(self, screen, game):
         holdTitle = self.mainFont.render("HOLD", True, self.textColor)
         holdRect = holdTitle.get_rect(center=(475, 385))
         screen.blit(holdTitle, holdRect)
-        
-        pygame.draw.rect(screen, self.boxColor, (375, 410, 200, 150), 2)
-        
+
+        boxRect = pygame.Rect(375, 410, 200, 150)
+        pygame.draw.rect(screen, self.boxColor, boxRect, 2)
+
         if game.holdBlock:
-            uiX = 430 - (game.holdBlock.col * game.grid.CELL_SIZE)
-            uiY = 455 - (game.holdBlock.row * game.grid.CELL_SIZE)
-            
-            game.holdBlock.draw(screen, game.grid.CELL_SIZE, uiX, uiY)
+            self.drawCenteredBlock(screen, game.holdBlock, game.grid.CELL_SIZE, boxRect.center)
+
+    def drawCenteredBlock(self, screen, block, cellSize, boxCenter):
+        #center the block's actual filled cells (not its full shapeData grid) in the box
+        minRow, maxRow, minCol, maxCol = block.getShapeBounds()
+        widthPx = (maxCol - minCol + 1) * cellSize
+        heightPx = (maxRow - minRow + 1) * cellSize
+
+        boundingLeft = (block.col + minCol) * cellSize
+        boundingTop = (block.row + minRow) * cellSize
+
+        xOff = boxCenter[0] - widthPx / 2 - boundingLeft
+        yOff = boxCenter[1] - heightPx / 2 - boundingTop
+
+        block.draw(screen, cellSize, xOff, yOff)
+
+    def drawGameOver(self, screen, game):
+        if not game.gameOver:
+            return
+
+        gridRect = pygame.Rect(
+            game.grid.X_OFFSET, game.grid.Y_OFFSET,
+            game.grid.COLS * game.grid.CELL_SIZE, game.grid.ROWS * game.grid.CELL_SIZE
+        )
+
+        overlay = pygame.Surface(gridRect.size, pygame.SRCALPHA)
+        overlay.fill((0, 0, 0, 180))
+        screen.blit(overlay, gridRect.topleft)
+
+        gameOverText = self.mainFont.render("GAME OVER", True, (255, 0, 0))
+        screen.blit(gameOverText, gameOverText.get_rect(center=gridRect.center))

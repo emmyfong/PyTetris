@@ -14,7 +14,14 @@ class Block:
     def getCurrentShape(self):
         #return the current shape's 2d array for current rotation
         return self.shapeData[self.rotationIdx]
-    
+
+    def getShapeBounds(self):
+        #bounding box (minRow, maxRow, minCol, maxCol) of the filled cells since shapeData grids include empty padding rows/cols that vary per block
+        shape = self.getCurrentShape()
+        rows = [i for i, row in enumerate(shape) if any(row)]
+        cols = [j for row in shape for j, cellVal in enumerate(row) if cellVal]
+        return min(rows), max(rows), min(cols), max(cols)
+
     def rotate(self):
         self.rotationIdx = (self.rotationIdx + 1) % len(self.shapeData)
         

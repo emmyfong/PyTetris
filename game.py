@@ -17,16 +17,24 @@ class Game:
         self.canHold = True
         
         self.score = 0
+        self.gameOver = False
 
     def getRandomBlock(self):
         randomClass = random.choice(self.blocks)
         return randomClass()
-    
+
     def spawnBlock(self):
         self.currentBlock = self.nextBlock
         self.nextBlock = self.getRandomBlock()
-    
+
+        #no room for the new block -> stack topped out
+        if self.checkCollision():
+            self.gameOver = True
+
     def moveBlockDown(self):
+        if self.gameOver:
+            return
+
         self.currentBlock.row += 1
         
         if self.checkCollision():
@@ -79,23 +87,35 @@ class Game:
     
     #Movement
     def moveLeft(self):
+        if self.gameOver:
+            return
+
         self.currentBlock.col -= 1
         if self.checkCollision():
             self.currentBlock.col += 1
-    
+
     def moveRight(self):
+        if self.gameOver:
+            return
+
         self.currentBlock.col += 1
         if self.checkCollision():
             self.currentBlock.col -= 1
-    
+
     #Block Rotation
     def rotateBlock(self):
+        if self.gameOver:
+            return
+
         self.currentBlock.rotate()
-        
+
         if self.checkCollision():
             self.currentBlock.undoRotate()
-        
+
     def dropBlock(self):
+        if self.gameOver:
+            return
+
         while True:
             self.currentBlock.row += 1
             if self.checkCollision():
@@ -113,7 +133,7 @@ class Game:
         self.canHold = True
     
     def hold(self):
-        if not self.canHold:
+        if self.gameOver or not self.canHold:
             return
 
         #First time holding block
