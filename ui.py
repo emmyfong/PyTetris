@@ -11,6 +11,9 @@ class UI:
     
         self.textColor = (255, 255, 255)
         self.boxColor = (255, 255, 255)
+        
+        self.playAgainRect = None
+        self.exitRect = None
     
     def draw(self, screen, game):
         #master UI
@@ -82,3 +85,20 @@ class UI:
 
         gameOverText = self.mainFont.render("GAME OVER", True, (255, 0, 0))
         screen.blit(gameOverText, gameOverText.get_rect(center=gridRect.center))
+        
+        #play again button
+        self.playAgainRect = pygame.Rect(0, 0, 160, 40)
+        self.playAgainRect.center = (gridRect.centerx, gridRect.centery + 20)
+        
+        pygame.draw.rect(screen, (255, 255, 255), self.playAgainRect, border_radius=5)
+        
+        playText = self.smallFont.render("PLAY AGAIN", True, (0, 0 ,0))
+        screen.blit(playText, playText.get_rect(center=self.playAgainRect.center))
+        
+        #exit button
+        self.exitRect = pygame.Rect(0, 0, 160, 40)
+        self.exitRect.center = (gridRect.centerx, gridRect.centery + 80)
+        pygame.draw.rect(screen, (255, 255, 255), self.exitRect, border_radius=5)
+        
+        exitText = self.smallFont.render("QUIT", True, (0, 0, 0))
+        screen.blit(exitText, exitText.get_rect(center=self.exitRect.center))
