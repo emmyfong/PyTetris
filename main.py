@@ -70,6 +70,16 @@ while running:
                 rightHeld = False
             if event.key == pygame.K_DOWN:
                 downHeld = False
+                
+        if event.type == pygame.MOUSEBUTTONDOWN:
+            if game.gameOver and event.button == 1:
+                mousePos = pygame.mouse_get_pos()
+                
+                if uiManager.playAgainRect and uiManager.playAgainRect.collidepoint(mousePos):
+                    game.reset()
+                
+                elif uiManager.exitRect and uiManager.exitRect.collidepoint(mousePos):
+                    running = False
 
 
     dt = clock.tick(30)
