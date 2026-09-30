@@ -9,6 +9,8 @@ class Game:
         self.grid = Grid()
         self.blocks = [OBlock, TBlock, IBlock, JBlock, LBlock, SBlock, ZBlock]
         
+        self.bag = []
+        
         self.nextBlock = self.getRandomBlock()
         self.currentBlock = self.getRandomBlock()
         
@@ -21,6 +23,7 @@ class Game:
 
     def reset(self):
         self.grid = Grid()
+        self.bag = []
         self.nextBlock = self.getRandomBlock()
         self.currentBlock = self.getRandomBlock()
         self.holdBlock = None
@@ -29,7 +32,12 @@ class Game:
         self.gameOver = False
 
     def getRandomBlock(self):
-        randomClass = random.choice(self.blocks)
+        if not self.bag:
+            #get current bag and shuffle the blocks
+            self.bag = self.bag.copy()
+            random.shuffle(self.bag)
+        
+        randomClass = self.bag.pop()
         return randomClass()
 
     def spawnBlock(self):
