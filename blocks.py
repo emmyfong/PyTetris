@@ -1,10 +1,11 @@
 #define blocks
 from block import Block
+from settings import Color
 
 class OBlock(Block):
     def __init__(self):
         super().__init__() #runs setup from parent block
-        self.color = (255, 255, 0)
+        self.color = Color.YELLOW.value
         self.shapeData = [
             [[1, 1],
             [1, 1]]
@@ -13,7 +14,7 @@ class OBlock(Block):
 class TBlock(Block):
     def __init__(self):
         super().__init__()
-        self.color = (128, 0, 128)
+        self.color = Color.PURPLE.value
         self.shapeData = [
             [[0, 1, 0],
             [1, 1, 1],
@@ -35,7 +36,7 @@ class TBlock(Block):
 class IBlock(Block):
     def __init__(self):
         super().__init__()
-        self.color = (0, 255, 255)
+        self.color = Color.CYAN.value
         self.shapeData = [
             [[0, 0, 0, 0],
             [1, 1, 1, 1],
@@ -61,7 +62,7 @@ class IBlock(Block):
 class JBlock(Block):
     def __init__(self):
         super().__init__()
-        self.color = (0, 0, 255)
+        self.color = Color.BLUE.value
         self.shapeData = [
             [[1, 0, 0],
             [1, 1, 1],
@@ -83,7 +84,7 @@ class JBlock(Block):
 class LBlock(Block):
     def __init__(self):
         super().__init__()
-        self.color = (255, 165, 0)
+        self.color = Color.ORANGE.value
         self.shapeData = [
             [[0, 0, 1],
             [1, 1, 1],
@@ -105,7 +106,7 @@ class LBlock(Block):
 class SBlock(Block):
     def __init__(self):
         super().__init__()
-        self.color = (0, 255, 0)
+        self.color = Color.GREEN.value
         self.shapeData = [
             [[0, 1, 1],
             [1, 1, 0],
@@ -127,7 +128,7 @@ class SBlock(Block):
 class ZBlock(Block):
     def __init__(self):
         super().__init__()
-        self.color = (255, 0, 0)
+        self.color = Color.RED.value
         self.shapeData = [
             [[1, 1, 0],
             [0, 1, 1],

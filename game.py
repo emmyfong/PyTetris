@@ -2,6 +2,7 @@
 import random
 from grid import Grid
 from blocks import OBlock, TBlock, IBlock, JBlock, LBlock, SBlock, ZBlock
+from settings import SCORE_VALUES
 
 class Game:
     
@@ -176,14 +177,7 @@ class Game:
         self.canHold = False
     
     def updateScore(self, linesCleared):
-        if linesCleared == 1:
-            self.score += 40
-        elif linesCleared == 2:
-            self.score += 100
-        elif linesCleared == 3:
-            self.score += 300
-        elif linesCleared == 4:
-            self.score += 1200
+        self.score += SCORE_VALUES.get(linesCleared, 0)
 
     def draw(self, screen):
         self.grid.drawGrid(screen)

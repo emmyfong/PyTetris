@@ -21,7 +21,7 @@ class Grid:
                 if (cellVal != 0):
                     pygame.draw.rect(screen, cellVal, (xPix, yPix, self.CELL_SIZE, self.CELL_SIZE))
                 
-                pygame.draw.rect(screen, (255, 255, 255), (xPix, yPix, self.CELL_SIZE, self.CELL_SIZE), 1)
+                pygame.draw.rect(screen, (180, 180, 180), (xPix, yPix, self.CELL_SIZE, self.CELL_SIZE), 1)
     
     #Check and clear line
     def isRowFull(self, row):
