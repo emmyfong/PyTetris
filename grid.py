@@ -1,12 +1,13 @@
 #grid.py
 import pygame
+from settings import GridDims
 
 class Grid:
-    ROWS = 20
-    COLS = 10
-    CELL_SIZE = 30
-    X_OFFSET = 20
-    Y_OFFSET = 25     
+    ROWS = GridDims.ROWS
+    COLS = GridDims.COLS
+    CELL_SIZE = GridDims.CELL_SIZE
+    X_OFFSET = GridDims.X_OFFSET
+    Y_OFFSET = GridDims.Y_OFFSET
     
     def __init__(self):
         self.grid = [[0 for _ in range(self.COLS)] for _ in range(self.ROWS)]

@@ -73,7 +73,7 @@ while running:
                 
         if event.type == pygame.MOUSEBUTTONDOWN:
             if game.gameOver and event.button == 1:
-                mousePos = pygame.mouse_get_pos()
+                mousePos = pygame.mouse.get_pos()
                 
                 if uiManager.playAgainRect and uiManager.playAgainRect.collidepoint(mousePos):
                     game.reset()

@@ -1,6 +1,13 @@
 #Game settings
 from enum import Enum
 
+class GridDims:
+    ROWS = 20
+    COLS = 10
+    CELL_SIZE = 30
+    X_OFFSET = 20
+    Y_OFFSET = 25
+
 class Color(Enum):
     CYAN = (21, 204, 209)
     YELLOW = (237, 234, 4)
