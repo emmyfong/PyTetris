@@ -33,7 +33,7 @@ class Block:
         self.col = 3
         self.rotationIdx = 0
     
-    def draw(self, screen, cellSize, xOff, yOff):
+    def draw(self, screen, cellSize, xOff, yOff, filled=True):
         shape = self.getCurrentShape()
         
         for i, row in enumerate(shape):
@@ -43,6 +43,11 @@ class Block:
                     xPix = (self.col + j) * cellSize + xOff
                     yPix = (self.row + i) * cellSize + yOff
                     
-                    #draw
-                    pygame.draw.rect(screen, self.color, (xPix, yPix, cellSize, cellSize))
-                    pygame.draw.rect(screen, (255, 255, 255), (xPix, yPix, cellSize, cellSize), 1)
+                    if filled:
+                        #draw solid block
+                        pygame.draw.rect(screen, self.color, (xPix, yPix, cellSize, cellSize))
+                        pygame.draw.rect(screen, (255, 255, 255), (xPix, yPix, cellSize, cellSize), 1)
+                    
+                    else:
+                        #draw ghost block
+                        pygame.draw.rect(screen, self.color, (xPix, yPix, cellSize, cellSize), 2)

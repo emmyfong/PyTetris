@@ -34,7 +34,7 @@ class Game:
     def getRandomBlock(self):
         if not self.bag:
             #get current bag and shuffle the blocks
-            self.bag = self.bag.copy()
+            self.bag = self.blocks.copy()
             random.shuffle(self.bag)
         
         randomClass = self.bag.pop()
@@ -64,7 +64,7 @@ class Game:
             
             self.spawnBlock() 
 
-    def checkCollision(self):
+    def checkCollision(self, rowOffset=0):
         shape = self.currentBlock.getCurrentShape()
         
         for i, row in enumerate(shape):
@@ -72,7 +72,8 @@ class Game:
                 if cellVal == 0:
                     continue
                 
-                globalRow = self.currentBlock.row + i
+                #Add hypotehtical offset to row
+                globalRow = self.currentBlock.row + i + rowOffset
                 globalCol = self.currentBlock.col + j
                 
                 #checks
@@ -101,6 +102,14 @@ class Game:
         
         self.canHold = True
     
+    def getGhostRow(self):
+        offset = 0
+        
+        #increase offset until collision detected
+        while not self.checkCollision(rowOffset=offset + 1):
+            offset += 1
+        
+        return self.currentBlock.row + offset
     
     #Movement
     def moveLeft(self):
@@ -178,5 +187,10 @@ class Game:
 
     def draw(self, screen):
         self.grid.drawGrid(screen)
+        
+        ghostRow = self.getGhostRow()
+        extraY = (ghostRow - self.currentBlock.row) * self.grid.CELL_SIZE
+        
+        self.currentBlock.draw(screen, self.grid.CELL_SIZE, self.grid.X_OFFSET, self.grid.Y_OFFSET + extraY, filled=False)
         
         self.currentBlock.draw(screen, self.grid.CELL_SIZE, self.grid.X_OFFSET, self.grid.Y_OFFSET)        
