@@ -8,6 +8,7 @@ class UI:
         #reusable font
         self.mainFont = pygame.font.SysFont('Consolas', 30, bold=True)
         self.smallFont = pygame.font.SysFont('Consolas', 20)
+        self.gameOverFont = pygame.font.SysFont('Consolas', 40, bold=True)
     
         self.textColor = (255, 255, 255)
         self.boxColor = (255, 255, 255)
@@ -83,22 +84,33 @@ class UI:
         overlay.fill((0, 0, 0, 180))
         screen.blit(overlay, gridRect.topleft)
 
-        gameOverText = self.mainFont.render("GAME OVER", True, (255, 0, 0))
-        screen.blit(gameOverText, gameOverText.get_rect(center=gridRect.center))
-        
+        gameOverText = self.gameOverFont.render("GAME OVER", True, (255, 0, 0))
+
+        #vertical gaps between the stacked elements and the button size
+        textToButtonGap = 20
+        buttonGap = 20
+        buttonSize = (160, 40)
+
+        #stack the text + both buttons as one group -> center the group in the grid
+        blockHeight = gameOverText.get_height() + textToButtonGap + buttonSize[1] + buttonGap + buttonSize[1]
+        blockTop = gridRect.centery - blockHeight / 2
+
+        gameOverRect = gameOverText.get_rect(midtop=(gridRect.centerx, blockTop))
+        screen.blit(gameOverText, gameOverRect)
+
         #play again button
-        self.playAgainRect = pygame.Rect(0, 0, 160, 40)
-        self.playAgainRect.center = (gridRect.centerx, gridRect.centery + 20)
-        
+        self.playAgainRect = pygame.Rect((0, 0), buttonSize)
+        self.playAgainRect.midtop = (gridRect.centerx, gameOverRect.bottom + textToButtonGap)
+
         pygame.draw.rect(screen, (255, 255, 255), self.playAgainRect, border_radius=5)
-        
+
         playText = self.smallFont.render("PLAY AGAIN", True, (0, 0 ,0))
         screen.blit(playText, playText.get_rect(center=self.playAgainRect.center))
-        
+
         #exit button
-        self.exitRect = pygame.Rect(0, 0, 160, 40)
-        self.exitRect.center = (gridRect.centerx, gridRect.centery + 80)
+        self.exitRect = pygame.Rect((0, 0), buttonSize)
+        self.exitRect.midtop = (gridRect.centerx, self.playAgainRect.bottom + buttonGap)
         pygame.draw.rect(screen, (255, 255, 255), self.exitRect, border_radius=5)
-        
+
         exitText = self.smallFont.render("QUIT", True, (0, 0, 0))
         screen.blit(exitText, exitText.get_rect(center=self.exitRect.center))
